@@ -24,14 +24,13 @@ let scene, play, how_to, back, time_left, timer, timer_colour, background_colour
 let colours, patterns, shapes, colour_selected_string, colour_selected, pattern_selected, shape_selected, star_img;
 let order_colour, order_pattern, order_shape, alarm_scaling, alarm_size, bottom_plate_x, bottom_plate_y, top_plate_x, top_plate_y;
 let white_choice, red_choice, orange_choice, yellow_choice, blue_choice, none_pattern_choice, dotted_pattern_choice, dashed_pattern_choice;
-let striped_pattern_choice, beep, alarm;
+let striped_pattern_choice, beep;
 let circle_choice, square_choice, oval_choice, rectangle_choice;
 let clicked, order;
 
 function preload() {
 	star_img = loadImage("https://sphaericactus.github.io/Plateformer/assets/star.png"); // A star image for one of the patterns
 	beep = loadSound("https://sphaericactus.github.io/Plateformer/assets/beep.mp3"); // The sound that the timer makes when it hits five and under
-	alarm = loadSound("https://sphaericactus.github.io/Plateformer/assets/alarm.mp3"); // The sound that the timer makes when it goes off
 }
 
 function setup() {
@@ -238,12 +237,18 @@ function restartProgram() {
 	// For the timer
 	time_left = 60; // How much time you have left (in seconds)
 	timer = 100; // Leave this alone
+	timer_colour = color(0); // The colour of the timer
 
 	moving = true; // Are the stripes moving?
 	stripeX = 0; // The x position of the stripes
 
 	// Game variables
 	plates_done = 0; // How many plates you did correctly
+
+	colour_selected_string = "White";
+	colour_selected = colours[0]; // Which colour you have selected
+	pattern_selected = "Plain"; // Which pattern you have selected
+	shape_selected = "Circle"; // Which shape you have selected
 
 	// For the orders
 	order_colour = "Orange";
@@ -362,8 +367,6 @@ function end() {
     textSize(50);
     text("Time's up!", 200, 60); // Title
 
-	alarm.play();
-	
     alarm_clock(alarm_size, 200, 130); // Draw the alarm clock
 
     // Animate the alarm clock
