@@ -260,11 +260,11 @@ function stripe_background() {
     for (var i = -500; i < 550; i += 40) {
         fill(stripe_colour);
         noStroke();
-        pushMatrix();
+        push();
             rotate(45);
             translate(stripeX, -285);
             rect(i, 0, 20, 800);
-        popMatrix();
+        pop();
 
         // Check to see if the stripe has gone off the screen, and if it has, bring it back to the start
         if (stripeX > 500) {
@@ -372,18 +372,18 @@ function end() {
     }
 
     // Draw the bottom plate
-    pushMatrix();
+    push();
         rotate(-140);
         translate(-516, -182);
         end_plate(bottom_plate_x, bottom_plate_y);
-    popMatrix();
+    pop();
 
     // Draw the top plate
-    pushMatrix();
+    push();
         rotate(140);
         translate(-182, -352);
         end_plate(top_plate_x, top_plate_y);
-    popMatrix();
+    pop();
 
     // Your score
     fill(0);
@@ -539,32 +539,32 @@ function menu() {
     }
 
     // Top left plate
-    pushMatrix();
+    push();
         rotate(142);
         translate(-156, -375);
         end_plate(200, 200);
-    popMatrix();
+    pop();
 
     // Bottom left plate
-    pushMatrix();
+    push();
         rotate(35);
         translate(51, 21);
         end_plate(200, 200);
-    popMatrix();
+    pop();
 
     // Top right plate
-    pushMatrix();
+    push();
         rotate(216);
         translate(-564, -137);
         end_plate(200, 200);
-    popMatrix();
+    pop();
 
     // Bottom right plate
-    pushMatrix();
+    push();
         rotate(330);
         translate(-87, 245);
         end_plate(200, 200);
-    popMatrix();
+    pop();
 }
 
 function how() {
