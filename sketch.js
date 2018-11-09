@@ -20,16 +20,18 @@ This is my third official game, and my second one to use OOP.
 **/
 
 /**VARIABLES**/
-let scene, play, how_to, back, time_left, timer, timer_colour, beep, background_colour, stripe_colour, moving, stripeX, stripeSpeed, plates_done;
+let scene, play, how_to, back, time_left, timer, timer_colour, background_colour, stripe_colour, moving, stripeX, stripeSpeed, plates_done;
 let colours, patterns, shapes, colour_selected_string, colour_selected, pattern_selected, shape_selected, star_img;
 let order_colour, order_pattern, order_shape, alarm_scaling, alarm_size, bottom_plate_x, bottom_plate_y, top_plate_x, top_plate_y;
-let white_choice, red_choice, orange_choice, yellow_choice, blue_choice, none_pattern_choice, dotted_pattern_choice, dashed_pattern_choice, striped_pattern_choice;
+let white_choice, red_choice, orange_choice, yellow_choice, blue_choice, none_pattern_choice, dotted_pattern_choice, dashed_pattern_choice;
+let striped_pattern_choice, beep, alarm;
 let circle_choice, square_choice, oval_choice, rectangle_choice;
 let clicked, order;
 
 function preload() {
 	star_img = loadImage("https://sphaericactus.github.io/Plateformer/assets/star.png"); // A star image for one of the patterns
 	beep = loadSound("https://sphaericactus.github.io/Plateformer/assets/beep.mp3"); // The sound that the timer makes when it hits five and under
+	alarm = loadSound("https://sphaericactus.github.io/Plateformer/assets/alarm.mp3"); // The sound that the timer makes when it goes off
 }
 
 function setup() {
@@ -360,6 +362,8 @@ function end() {
     textSize(50);
     text("Time's up!", 200, 60); // Title
 
+	alarm.play();
+	
     alarm_clock(alarm_size, 200, 130); // Draw the alarm clock
 
     // Animate the alarm clock
