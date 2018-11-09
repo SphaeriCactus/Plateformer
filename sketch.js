@@ -28,8 +28,8 @@ let circle_choice, square_choice, oval_choice, rectangle_choice;
 let clicked, order;
 
 function preload() {
-	star_img = loadImage("https://sphaericactus.github.io/Idea-Jam-Alight/assets/star.png"); // A star image for one of the patterns
-	beep = loadSound("https://sphaericactus.github.io/Idea-Jam-Alight/assets/beep.mp3"); // The sound that the timer makes when it hits five and under
+	star_img = loadImage("https://sphaericactus.github.io/Plateformer/assets/star.png"); // A star image for one of the patterns
+	beep = loadSound("https://sphaericactus.github.io/Plateformer/assets/beep.mp3"); // The sound that the timer makes when it hits five and under
 }
 
 function setup() {
@@ -102,11 +102,12 @@ function setup() {
 
 	order = new order(order_colour, order_pattern, order_shape);
 
+	textAlign(CENTER, CENTER); // Align the text
+
 	clicked = false;
 }
 
 /*******************************************************************************************/
-textAlign(CENTER, CENTER); // Align the text
 
 // Mouse clicky stuff
 function mouseClicked() {
