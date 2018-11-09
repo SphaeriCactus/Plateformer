@@ -100,7 +100,7 @@ function setup() {
 	oval_choice = new choice("shape", "", "", "Oval", 350, 135);
 	rectangle_choice = new choice("shape", "", "", "Rectangle", 350, 165);
 
-	order = new order(order_colour, order_pattern, order_shape);
+	order = new Order(order_colour, order_pattern, order_shape);
 
 	textAlign(CENTER, CENTER); // Align the text
 
@@ -248,7 +248,7 @@ function restartProgram() {
 	alarm_scaling = "out"; // Which way the alarm clock is scaling in
 	alarm_size = 40; // The size of the alarm clock
 
-	order = new order(order_colour, order_pattern, order_shape);
+	order = new Order(order_colour, order_pattern, order_shape);
 }
 
 // A function to draw the cool striped background
