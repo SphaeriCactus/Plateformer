@@ -1,12 +1,12 @@
 // The constructor for the orders
-var order = function(colour, pattern, shape) {
+function Order(colour, pattern, shape) {
     this.colour = colour; // The colour of the plate
     this.pattern = pattern; // The pattern on the plate
     this.shape = shape; // The shape of the plate
-};
+}
 
 // The draw method for the orders
-order.prototype.draw = function() {
+Order.prototype.draw = function() {
     rectMode(CORNER);
     noStroke();
     fill(255, 242, 171);
@@ -33,7 +33,7 @@ order.prototype.draw = function() {
     text("Shape: " + this.shape, 200, 90); // Shape
 };
 
-order.prototype.generate = function() {
+Order.prototype.generate = function() {
     // Colour
     var new_order_colour = random(0, 5);
     new_order_colour = floor(new_order_colour);
