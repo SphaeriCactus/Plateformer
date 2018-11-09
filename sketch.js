@@ -33,6 +33,9 @@ function preload() {
 }
 
 function setup() {
+	createCanvas(400, 400);
+	angleMode(DEGREES);
+
 	// You know what this is for
 	scene = "menu";
 
@@ -84,11 +87,11 @@ function setup() {
 	top_plate_y = 201; // The y coordinate of the top plate
 
 	/* The choices */
-	white_choice = new choice("colour", color(255), "", "", 50, 70);
-	red_choice = new choice("colour", color(255, 0, 0), "", "", 50, 95);
-	orange_choice = new choice("colour", color(255, 153, 0), "", "", 50, 120);
-	yellow_choice = new choice("colour", color(255, 255, 0), "", "", 50, 145);
-	blue_choice = new choice("colour", color(0, 0, 255), "", "", 50, 170);
+	white_choice = new choice("colour", color(255), "", "", 50, 70, "White");
+	red_choice = new choice("colour", color(255, 0, 0), "", "", 50, 95, "Red");
+	orange_choice = new choice("colour", color(255, 153, 0), "", "", 50, 120, "Orange");
+	yellow_choice = new choice("colour", color(255, 255, 0), "", "", 50, 145, "Yellow");
+	blue_choice = new choice("colour", color(0, 0, 255), "", "", 50, 170, "Blue");
 
 	none_pattern_choice = new choice("pattern", "", "Plain", "", 50, 265);
 	dotted_pattern_choice = new choice("pattern", "", "Flower", "", 50, 295);
@@ -130,6 +133,7 @@ function choice_plate(x, y, pattern) {
 function plain(x, y) {
     fill(0);
     textSize(10);
+	noStroke();
     text("Plain", x, y);
 }
 
@@ -262,13 +266,13 @@ function stripe_background() {
         noStroke();
         push();
             rotate(45);
-            translate(stripeX, -285);
+            translate(stripeX, -345);
             rect(i, 0, 20, 800);
         pop();
 
         // Check to see if the stripe has gone off the screen, and if it has, bring it back to the start
         if (stripeX > 500) {
-            stripeX = -10;
+            stripeX = -5;
         }
     }
 
@@ -330,7 +334,7 @@ function plate(x, y) {
             flower(200, 200, 150, 150);
             break;
         case "Star":
-            image(star_img, 150, 95);
+            image(star_img, 150, 150, 100, 100);
             break;
         case "Spots":
             spots(200, 200, 150, 150);
@@ -497,10 +501,10 @@ function menu() {
 
     noStroke();
     fill(255, 255, 0);
-    ellipse(215, 181, 30, 30); // Yellow circle
+    ellipse(213, 179, 29, 30); // Yellow circle
 
     fill(play);
-    triangle(208, 172, 226, 181, 208, 190); // Triangle part
+    triangle(208, 170, 226, 179, 208, 188); // Triangle part
 
     // How button
     fill(0);
@@ -508,11 +512,11 @@ function menu() {
 
     noStroke();
     fill(255, 255, 0);
-    ellipse(179, 261, 30, 30); // Yellow circle
+    ellipse(181, 259, 28, 30); // Yellow circle
 
     textSize(33);
     fill(how_to);
-    text("?", 178, 262); // Other text
+    text("?", 180, 260); // Other text
 
     // If your mouse goes over the play button
     if (dist(mouseX, mouseY, 215, 181) <= 30/2) {
@@ -578,17 +582,17 @@ function how() {
     textSize(18);
     text("This is a simple game where you try\nto design as many plates as you can\nin one minute. There are three different\nthings you can use to design the plate.\nThe colour, the pattern, and the shape.\nThe timer will be on the right, with the\nshape, and the colour and pattern will\nbe on the left. People's plates that they\nordered will appear at the top. Your number\nof finished plates will be at the bottom.\nHave fun!", 200, 230); // How to
 
+	fill(255, 255, 0);
+    noStroke();
+    ellipse(60, 47, 14, 10); // Yellow circle
+
     // Back button
     textSize(35);
+	fill(back);
     text("Back", 65, 40); // Text
 
-    fill(255, 255, 0);
-    noStroke();
-    ellipse(54.5, 43.5, 14, 14); // Yellow circle
-
-    fill(back);
-    textSize(13);
-    text("🠈", 54, 43); // Arrow
+    textSize(10);
+    text("🠈", 59, 48); // Arrow
 
     // If your mouse goes over the back button
     if (dist(mouseX, mouseY, 54.5, 43.5) <= 14/2) {
@@ -626,7 +630,7 @@ function game() {
     draw_shapes();
 
     // Draw the order
-    if (colour_selected_string === order.colour && pattern_selected === order.pattern && shape_selected === order.shape) {
+    if (colour_selected_string == order.colour && pattern_selected == order.pattern && shape_selected == order.shape) {
         plates_done ++;
         shape_selected = "Circle";
         colour_selected = color(255);

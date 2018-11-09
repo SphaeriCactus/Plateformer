@@ -35,8 +35,7 @@ Order.prototype.draw = function() {
 
 Order.prototype.generate = function() {
     // Colour
-    var new_order_colour = random(0, 5);
-    new_order_colour = floor(new_order_colour);
+    let new_order_colour = floor(random(0, 5));
     if (new_order_colour === 0) {
         new_order_colour = "White";
     } else if (new_order_colour === 1) {
@@ -76,5 +75,6 @@ Order.prototype.generate = function() {
     } else if (new_order_shape === 3) {
         new_order_shape = "Rectangle";
     }
+
     this.shape = new_order_shape;
 };
