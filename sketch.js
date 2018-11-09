@@ -23,6 +23,14 @@ This is my third official game, and my second one to use OOP.
 let scene, play, how_to, back, time_left, timer, timer_colour, beep, background_colour, stripe_colour, moving, stripeX, stripeSpeed, plates_done;
 let colours, patterns, shapes, colour_selected_string, colour_selected, pattern_selected, shape_selected, star_img;
 let order_colour, order_pattern, order_shape, alarm_scaling, alarm_size, bottom_plate_x, bottom_plate_y, top_plate_x, top_plate_y;
+let white_choice, red_choice, orange_choice, yellow_choice, blue_choice, none_pattern_choice, dotted_pattern_choice, dashed_pattern_choice, striped_pattern_choice;
+let circle_choice, square_choice, oval_choice, rectangle_choice;
+let clicked, order;
+
+function preload() {
+	star_img = loadImage("https://sphaericactus.github.io/Idea-Jam-Alight/assets/star.png"); // A star image for one of the patterns
+	beep = loadSound("https://sphaericactus.github.io/Idea-Jam-Alight/assets/beep.mp3"); // The sound that the timer makes when it hits five and under
+}
 
 function setup() {
 	// You know what this is for
@@ -41,7 +49,6 @@ function setup() {
 	time_left = 60; // How much time you have left (in seconds)
 	timer = 100; // Leave this alone
 	timer_colour = color(0); // The colour of the timer
-	beep = getSound("assets/timer"); // The sound that the timer makes when it hits five and under
 
 	// For the background
 	background_colour = color(141, 189, 199); // The background colour
@@ -63,8 +70,6 @@ function setup() {
 	pattern_selected = "Plain"; // Which pattern you have selected
 	shape_selected = "Circle"; // Which shape you have selected
 
-	star_img = getImage("cute/Star"); // A star image for one of the patterns
-
 	// For the orders
 	order_colour = "Orange";
 	order_pattern = patterns[3];
@@ -77,13 +82,33 @@ function setup() {
 	bottom_plate_y = 282; // The y coordinate of the bottom plate
 	top_plate_x = 200; // The x coordinate of the top plate
 	top_plate_y = 201; // The y coordinate of the top plate
+
+	/* The choices */
+	white_choice = new choice("colour", color(255), "", "", 50, 70);
+	red_choice = new choice("colour", color(255, 0, 0), "", "", 50, 95);
+	orange_choice = new choice("colour", color(255, 153, 0), "", "", 50, 120);
+	yellow_choice = new choice("colour", color(255, 255, 0), "", "", 50, 145);
+	blue_choice = new choice("colour", color(0, 0, 255), "", "", 50, 170);
+
+	none_pattern_choice = new choice("pattern", "", "Plain", "", 50, 265);
+	dotted_pattern_choice = new choice("pattern", "", "Flower", "", 50, 295);
+	dashed_pattern_choice = new choice("pattern", "", "Star", "", 50, 325);
+	striped_pattern_choice = new choice("pattern", "", "Spots", "", 50, 355);
+
+	circle_choice = new choice("shape", "", "", "Circle", 350, 75);
+	square_choice = new choice("shape", "", "", "Square", 350, 105);
+	oval_choice = new choice("shape", "", "", "Oval", 350, 135);
+	rectangle_choice = new choice("shape", "", "", "Rectangle", 350, 165);
+
+	order = new order(order_colour, order_pattern, order_shape);
+
+	clicked = false;
 }
 
 /*******************************************************************************************/
 textAlign(CENTER, CENTER); // Align the text
 
 // Mouse clicky stuff
-var clicked = false;
 function mouseClicked() {
     clicked = true;
 }
@@ -196,31 +221,33 @@ function rect_plate() {
     }
 }
 
-/* The choices */
-var white_choice = new choice("colour", color(255), "", "", 50, 70);
-var red_choice = new choice("colour", color(255, 0, 0), "", "", 50, 95);
-var orange_choice = new choice("colour", color(255, 153, 0), "", "", 50, 120);
-var yellow_choice = new choice("colour", color(255, 255, 0), "", "", 50, 145);
-var blue_choice = new choice("colour", color(0, 0, 255), "", "", 50, 170);
-
-var none_pattern_choice = new choice("pattern", "", "Plain", "", 50, 265);
-var dotted_pattern_choice = new choice("pattern", "", "Flower", "", 50, 295);
-var dashed_pattern_choice = new choice("pattern", "", "Star", "", 50, 325);
-var striped_pattern_choice = new choice("pattern", "", "Spots", "", 50, 355);
-
-var circle_choice = new choice("shape", "", "", "Circle", 350, 75);
-var square_choice = new choice("shape", "", "", "Square", 350, 105);
-var oval_choice = new choice("shape", "", "", "Oval", 350, 135);
-var rectangle_choice = new choice("shape", "", "", "Rectangle", 350, 165);
-
-/* The order */
-var order = new order(order_colour, order_pattern, order_shape);
-
 /**FUNCTIONS**/
 
 // A function to restart the restart the program
 function restartProgram() {
+	// You know what this is for
+	scene = "menu";
 
+	// For the timer
+	time_left = 60; // How much time you have left (in seconds)
+	timer = 100; // Leave this alone
+
+	moving = true; // Are the stripes moving?
+	stripeX = 0; // The x position of the stripes
+
+	// Game variables
+	plates_done = 0; // How many plates you did correctly
+
+	// For the orders
+	order_colour = "Orange";
+	order_pattern = patterns[3];
+	order_shape = shapes[3];
+
+	// End variables
+	alarm_scaling = "out"; // Which way the alarm clock is scaling in
+	alarm_size = 40; // The size of the alarm clock
+
+	order = new order(order_colour, order_pattern, order_shape);
 }
 
 // A function to draw the cool striped background
@@ -378,7 +405,7 @@ function counter() {
         text(time_left, 345, 350);
     }
 
-    timer--;
+    timer --;
 
     if (time_left <= 0) {
         scene = "end";
@@ -391,7 +418,7 @@ function counter() {
     }
 
     if ((time_left <= 5 && time_left !== 0) && timer % 75 === 0) {
-        playSound(beep);
+        beep.play();
     }
 }
 
